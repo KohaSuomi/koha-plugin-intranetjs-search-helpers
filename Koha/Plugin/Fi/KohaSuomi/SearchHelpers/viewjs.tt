@@ -1,0 +1,14 @@
+[% INCLUDE 'doc-head-open.inc' %]
+ <title>IntranetUserJS: SearchHelpers</title>
+[% INCLUDE 'doc-head-close.inc' %]
+</head>
+<body>
+[% INCLUDE 'header.inc' %]
+[% INCLUDE 'cat-search.inc' %]
+
+<div id="breadcrumbs"><a href="/cgi-bin/koha/mainpage.pl">Home</a> &rsaquo; <a href="/cgi-bin/koha/plugins/plugins-home.pl">Plugins</a> &rsaquo; SearchHelpers &rsaquo; View JS Tool</div>
+
+<div id="js">
+    <textarea rows=40 cols=180> [% jscontent %] </textarea>
+</div>
+
