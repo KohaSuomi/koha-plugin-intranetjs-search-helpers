@@ -15,14 +15,14 @@ our $VERSION = "1.0.0";
 
 ## Here is our metadata, some keys are required, some are optional
 our $metadata = {
-    name            => "IntranetUserJS: SearchHelpers",
+    name            => "IntranetUserJS: Hakuapuri",
     author          => 'Johanna Räisä',
     date_authored   => '2025-06-24',
     date_updated    => '2025-06-24',
     minimum_version => '24.05',
     maximum_version => '',
     version         => $VERSION,
-    description     => "Haun apuvälineet (Paikalliskannat ja Täti)",
+    description     => "Ehdota sanastotermejä tarkassa haussa (Paikalliskannat ja Täti)",
 };
 
 ## This is the minimum code required for a plugin's 'new' method
@@ -49,72 +49,40 @@ sub new {
 sub intranet_js {
     my ( $self, $args ) = @_;
 
-    my $dir=C4::Context->config('pluginsdir');
-    my $plugin_fulldir = $dir . "/Koha/Plugin/Fi/KohaSuomi/SearchHelpers/";
-    my $js = read_file($plugin_fulldir .'script.js');
-    
-    # my $param_a = $self->retrieve_data('config_param_a');
-    
-    ## Add REPLACE_BY_CONFIG_PARAM_A to the js script to replace it with the configuration parameter
-    # $js = $js =~ s/REPLACE_BY_CONFIG_PARAM_A/$param_a/r;
-    
-    utf8::decode($js);
-    return "<script>$js</script>";
-}
-
-## The existance of a 'tool' subroutine means the plugin is capable
-## of running a tool. The difference between a tool and a report is
-## primarily semantic, but in general any plugin that modifies the
-## Koha database should be considered a tool
-sub tool {
-    my ( $self, $args ) = @_;
-    
-    my $cgi = $self->{'cgi'};
-    my $template = $self->get_template({ file => 'viewjs.tt' });
-    
-    my $plugin_fulldir = $self->mbf_path();
-    my $js = read_file($plugin_fulldir .'script.js');
-    
-    # my $param_a = $self->retrieve_data('config_param_a');
-    
-    ## Add REPLACE_BY_CONFIG_PARAM_A to the js script to replace it with the configuration parameter
-    # $js = $js =~ s/REPLACE_BY_CONFIG_PARAM_A/$param_a/r;
-    
-    utf8::decode($js);
-    $template->param( 'jscontent' => $js );
-
-    $self->output_html( $template->output() );
+    my $pluginpath = $self->get_plugin_http_path();
+    my $vocab_config = $self->retrieve_data('vocab_config') || {};
+    my $scripts = '<script>var vocab_config = "'.$vocab_config.'";</script>';
+    $scripts .= '<script src="'.$pluginpath.'/script.js"></script>';
+    return $scripts;
 }
 
 ## If your tool is complicated enough to needs it's own setting/configuration
 ## you will want to add a 'configure' method to your plugin like so.
 ## Here I am throwing all the logic into the 'configure' method, but it could
 ## be split up like the 'report' method is.
-# sub configure {
-#     my ( $self, $args ) = @_;
-#     my $cgi = $self->{'cgi'};
+sub configure {
+    my ( $self, $args ) = @_;
+    my $cgi = $self->{'cgi'};
 
-#     unless ( $cgi->param('save') ) {
-#         my $template = $self->get_template({ file => 'configure.tt' });
+    unless ( $cgi->param('save') ) {
+        my $template = $self->get_template({ file => 'configure.tt' });
 
-#         ## Grab the values we already have for our settings, if any exist
-#         $template->param(
-#             config_param_a => $self->retrieve_data('config_param_a'),
-#             last_upgraded   => $self->retrieve_data('last_upgraded'),
-#         );
+        ## Grab the values we already have for our settings, if any exist
+        $template->param(
+            vocab_config => $self->retrieve_data('vocab_config') || {},
+        );
 
-#         $self->output_html( $template->output() );
-#     }
-#     else {
-#         $self->store_data(
-#             {
-#                 config_param_a => $cgi->param('config_param_a'),
-#                 last_configured_by => C4::Context->userenv->{'number'},
-#             }
-#         );
-#         $self->go_home();
-#     }
-# }
+        $self->output_html( $template->output() );
+    }
+    else {
+        $self->store_data(
+            {
+                vocab_config => $cgi->param('vocab_config') || {},
+            }
+        );
+        $self->go_home();
+    }
+}
 
 ## This is the 'install' method. Any database tables or other setup that should
 ## be done when the plugin if first installed should be executed in this method.

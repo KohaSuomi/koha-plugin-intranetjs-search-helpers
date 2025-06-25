@@ -19,26 +19,18 @@
 
         <p>
 
-        <label for="config_param_a">Käytettävän raportin ID: </label>
-        <input type="text" name="config_param_a" value="[% config_param_a %]" />
+        <label for="vocab_config">Hakusanastot: </label>
+        <input type="text" name="vocab_config" value="[% vocab_config %]" /><br/>
+        <small> (välilyönnillä eroteltu lista hakusanastoista, esim. "yso allars finaf")</small>
 
         <p>
 
         <input type="hidden" name="save" value="1" />
 
-        <input type="submit" value="Save configuration" />
+        <input type="submit" value="Tallenna" />
     </form>
 
     <hr/>
-
-    <p>
-        <h5>Upgrade status</h5>
-        [% IF last_upgraded %]
-            Plugin was last upgraded on this system on [% last_upgraded | $KohaDates with_hours => 1 %]
-        [% ELSE %]
-            Plugin has never been upgraded.
-        [% END %]
-    </p>
 
 [% INCLUDE 'intranet-bottom.inc' %]
 
