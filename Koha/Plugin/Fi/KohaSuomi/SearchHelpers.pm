@@ -50,9 +50,9 @@ sub intranet_js {
     my ( $self, $args ) = @_;
 
     my $pluginpath = $self->get_plugin_http_path();
-    my $vocab_config = $self->retrieve_data('vocab_config');
+    my $vocab_config = $self->retrieve_data('vocab_config') || '';
     my $scripts = '<script>var vocab_config = "'.$vocab_config.'";</script>';
-    $scripts .= '<script src="'.$pluginpath.'/script.js"></script>';
+    $scripts .= '<script src="'.$pluginpath.'/js/finto-helper.js"></script>';
     return $scripts;
 }
 
