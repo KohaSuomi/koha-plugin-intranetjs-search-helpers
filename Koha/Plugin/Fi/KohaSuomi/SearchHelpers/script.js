@@ -29,6 +29,7 @@ $(document).ready(function () {
             width: 18px;
             height: 18px;
             position: static;
+            text-indent: 0;
         }
         .suggestion-list {
             position: absolute;
@@ -44,6 +45,7 @@ $(document).ready(function () {
             padding: 4px 8px;
             cursor: pointer;
             list-style-type: none;
+            text-indent: 0;
         }
         .suggestion-list li:hover {
             background: #e0e0e0;
