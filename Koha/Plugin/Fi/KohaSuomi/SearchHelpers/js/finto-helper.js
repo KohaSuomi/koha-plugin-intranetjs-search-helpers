@@ -134,7 +134,7 @@ function attachSearchSuggestions(element) {
                 // Show the spinner while fetching results
                 element._spinner.style.display = 'inline-block';
                 // Fetch search results from the Finto API
-                const vocab = vocab_config || "yso allars finaf";
+                const vocab = vocab_config || "yso finaf";
                 const response = await fetch(`https://api.finto.fi/rest/v1/search?vocab=${encodeURIComponent(vocab)}&query=${encodeURIComponent(searchTerm)}*`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
