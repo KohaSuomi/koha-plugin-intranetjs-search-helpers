@@ -50,7 +50,7 @@ sub intranet_js {
     my ( $self, $args ) = @_;
 
     my $pluginpath = $self->get_plugin_http_path();
-    my $vocab_config = $self->retrieve_data('vocab_config') || {};
+    my $vocab_config = $self->retrieve_data('vocab_config');
     my $scripts = '<script>var vocab_config = "'.$vocab_config.'";</script>';
     $scripts .= '<script src="'.$pluginpath.'/script.js"></script>';
     return $scripts;
@@ -77,7 +77,7 @@ sub configure {
     else {
         $self->store_data(
             {
-                vocab_config => $cgi->param('vocab_config') || {},
+                vocab_config => $cgi->param('vocab_config') || '',
             }
         );
         $self->go_home();
