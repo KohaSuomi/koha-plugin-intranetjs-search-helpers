@@ -126,12 +126,13 @@ function attachSearchSuggestions(element) {
             if (element._debounceTimeout) {
                 clearTimeout(element._debounceTimeout);
             }
-            // Show the spinner while fetching results
-            element._spinner.style.display = 'inline-block';
+            
             element._debounceTimeout = setTimeout(async () => {
                 if (searchTerm.length < 3) {
                     return;
                 }
+                // Show the spinner while fetching results
+                element._spinner.style.display = 'inline-block';
                 // Fetch search results from the Finto API
                 const vocab = vocab_config || "yso allars finaf";
                 const response = await fetch(`https://api.finto.fi/rest/v1/search?vocab=${encodeURIComponent(vocab)}&query=${encodeURIComponent(searchTerm)}*`);
@@ -139,6 +140,11 @@ function attachSearchSuggestions(element) {
                     throw new Error('Network response was not ok');
                 }
                 const results = await response.json();
+                if (!results || !results.results || results.results.length === 0) {
+                    // Hide the spinner if no results found
+                    element._spinner.style.display = 'none';
+                    return;
+                }
                 // Remove any existing suggestion list
                 let oldList = element.parentElement.querySelector('.suggestion-list');
                 if (oldList) oldList.remove();
