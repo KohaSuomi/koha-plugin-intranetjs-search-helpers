@@ -155,16 +155,28 @@ function attachSearchSuggestions(element) {
                 list.style.width = element.offsetWidth + 'px';
 
                 // Assume results.results contains the suggestions
-                (results.results || []).slice(0, 10).forEach((item, idx) => {
-                    const li = document.createElement('li');
-                    li.textContent = item.label || item.prefLabel || item.id || 'Unknown';
-                    li.tabIndex = 0; // Make focusable for keyboard navigation
-                    li.addEventListener('mousedown', () => {
-                        element.value = li.textContent;
-                        list.remove();
-                    });
-                    list.appendChild(li);
+                // Collect unique labels to avoid duplicates
+                const seen = new Set();
+                (results.results || []).forEach((item) => {
+                    let label = item.label || item.prefLabel || item.localname || 'Unknown';
+                    // Remove trailing years or year ranges, e.g., "Surname, Firstname, 1999-" or "Surname, Firstname, 1999-2005"
+                    label = label.replace(/\s*,\s*\d{4}(-\d{0,4})?$/, '').trim();
+                    if (!seen.has(label)) {
+                        seen.add(label);
+                        const li = document.createElement('li');
+                        li.textContent = label;
+                        li.tabIndex = 0; // Make focusable for keyboard navigation
+                        li.addEventListener('mousedown', () => {
+                            element.value = li.textContent;
+                            list.remove();
+                        });
+                        list.appendChild(li);
+                    }
                 });
+                // Limit to 10 unique suggestions
+                while (list.children.length > 10) {
+                    list.removeChild(list.lastChild);
+                }
 
                 if (list.children.length > 0) {
                     // Position the suggestion list directly below the input
