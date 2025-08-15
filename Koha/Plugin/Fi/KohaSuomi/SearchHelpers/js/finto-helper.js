@@ -166,8 +166,9 @@ function attachSearchSuggestions(element) {
                         const li = document.createElement('li');
                         li.textContent = label;
                         li.tabIndex = 0; // Make focusable for keyboard navigation
-                        li.addEventListener('mousedown', () => {
+                        li.addEventListener('click', () => {
                             element.value = li.textContent;
+                            element.focus();
                             list.remove();
                         });
                         list.appendChild(li);
