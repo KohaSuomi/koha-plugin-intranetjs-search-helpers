@@ -94,11 +94,13 @@ function attachSearchSuggestions(element) {
             } else if (e.key === 'Enter' && selectedIdx >= 0) {
                 e.preventDefault();
                 element.value = items[selectedIdx].textContent;
-                if (items[selectedIdx].parentElement) {
-                    items[selectedIdx].parentElement.remove();
+                let suggestionList = element.parentElement.querySelector('.suggestion-list');
+                if (suggestionList) {
+                    suggestionList.remove();
                 }
                 element._selectedIdx = -1;
                 element._items = [];
+                element.focus();
             } else if (e.key === 'Escape' || e.key === 'Tab') {
                 e.preventDefault();
                 let suggestionList = element.parentElement.querySelector('.suggestion-list');
@@ -160,7 +162,7 @@ function attachSearchSuggestions(element) {
                 (results.results || []).forEach((item) => {
                     let label = item.label || item.prefLabel || item.localname || 'Unknown';
                     // Remove trailing years or year ranges, e.g., "Surname, Firstname, 1999-" or "Surname, Firstname, 1999-2005"
-                    label = label.replace(/\s*,\s*\d{4}(-\d{0,4})?$/, '').trim();
+                    label = label.split(',').slice(0, 2).join(',').trim().replace(/,\s*\d+.*$/, '');
                     if (!seen.has(label)) {
                         seen.add(label);
                         const li = document.createElement('li');
