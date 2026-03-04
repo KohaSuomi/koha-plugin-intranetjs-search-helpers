@@ -168,10 +168,14 @@ function attachSearchSuggestions(element) {
                         const li = document.createElement('li');
                         li.textContent = label;
                         li.tabIndex = 0; // Make focusable for keyboard navigation
-                        li.addEventListener('click', () => {
+                        li.addEventListener('mousedown', (e) => {
+                            e.preventDefault(); // Prevent blur from firing
                             element.value = li.textContent;
-                            element.focus();
                             list.remove();
+                            // Restore focus after a short delay to ensure the list is removed
+                            setTimeout(() => {
+                                element.focus();
+                            }, 10);
                         });
                         list.appendChild(li);
                     }
