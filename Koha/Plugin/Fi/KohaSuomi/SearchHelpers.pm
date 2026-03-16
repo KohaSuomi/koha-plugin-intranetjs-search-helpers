@@ -77,7 +77,7 @@ sub configure {
     else {
         $self->store_data(
             {
-                vocab_config => $cgi->param('vocab_config') || '',
+                vocab_config => scalar $cgi->param('vocab_config') || '',
             }
         );
         $self->go_home();
