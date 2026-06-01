@@ -35,7 +35,7 @@ sub get_localized_metadata {
         $name = "IntranetUserJS: Sökhjälp";
         $description = "Föreslå termer från vokabulär i avancerad sökning (Lokala databaser och Täti)";
     
-    } elsif ( $lang eq 'fi-FI' ) {
+    } elsif ($lang eq 'fi-FI' ) {
         $name = "IntranetUserJS: Hakuapuri";
         $description = "Ehdota sanastotermejä tarkassa haussa (Paikalliskannat ja Täti)";
     } else {
