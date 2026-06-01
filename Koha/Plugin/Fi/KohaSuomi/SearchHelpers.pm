@@ -25,6 +25,25 @@ our $metadata = {
     description     => "Ehdota sanastotermejä tarkassa haussa (Paikalliskannat ja Täti)",
 };
 
+sub get_localized_metadata {
+    my ($self) = @_;
+    my $lang = C4::Languages::getLanguage(); || 'fi';
+    my ($name, $description);
+
+    if ($lang eq 'sv-SE') {
+        $name = IntranetUserJS: Sökhjälp;
+        $description = "Föreslå termer från vokabulär i avancerad sökning (Lokala databaser och Tant)";
+    
+    } elisf ( $lang eq 'en-US' ) {
+        $name = IntranetUserJS: Search Helper;
+        $description = "Suggest vocabulary terms in advanced search (Local databases and Aunt)";
+    } else {
+        $name = "IntranetUserJS: Hakuapuri";
+        $description = "Ehdota sanastotermejä tarkassa haussa (Paikalliskannat ja Täti)";
+    }
+    return ($name, $description);
+}
+
 ## This is the minimum code required for a plugin's 'new' method
 ## More can be added, but none should be removed
 sub new {

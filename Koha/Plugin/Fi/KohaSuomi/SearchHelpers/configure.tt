@@ -1,13 +1,18 @@
+[% TRY %]
+    [% PROCESS "$PLUGIN_DIR/i18n/${LANG}.inc" %]
+[% CATCH %]
+    [% PROCESS "$PLUGIN_DIR/i18n/default.inc" %]
+[% END %]
 [% USE KohaDates %]
 [% INCLUDE 'doc-head-open.inc' %]
- <title>IntranetUserJS: SearchHelpers Configuration</title>
+ <title>[% T.configure_1 %]</title>
 [% INCLUDE 'doc-head-close.inc' %]
 </head>
 <body>
 [% INCLUDE 'header.inc' %]
 [% INCLUDE 'cat-search.inc' %]
 
-<div id="breadcrumbs"><a href="/cgi-bin/koha/mainpage.pl">Home</a> &rsaquo; <a href="/cgi-bin/koha/plugins/plugins-home.pl">Plugins</a> &rsaquo; IntranetUserJS: SearchHelpers &rsaquo; Configuration</div>
+<div id="breadcrumbs"><a href="/cgi-bin/koha/mainpage.pl">[% T.configure_2 %]</a> &rsaquo; <a href="/cgi-bin/koha/plugins/plugins-home.pl">[% T.configure_3 %]</a>[% T.configure_4 %]</div>
 
 <div id="doc3">
 
@@ -19,15 +24,15 @@
 
         <p>
 
-        <label for="vocab_config">Hakusanastot: </label>
+        <label for="vocab_config">[% T.configure_5 %]</label>
         <input type="text" name="vocab_config" value="[% vocab_config %]" /><br/>
-        <small> (välilyönnillä eroteltu lista hakusanastoista, esim. "yso allars finaf")</small>
+        <small>[% T.configure_6 %]</small>
 
         <p>
 
         <input type="hidden" name="save" value="1" />
 
-        <input type="submit" value="Tallenna" />
+        <input type="submit" value="[% T.configure_7 %]" />
     </form>
 
     <hr/>
