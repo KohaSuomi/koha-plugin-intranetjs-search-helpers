@@ -9,6 +9,7 @@ use base qw(Koha::Plugins::Base);
 use C4::Context;
 use utf8;
 use File::Slurp;
+use C4::Languages;
 
 ## Here we set our plugin version
 our $VERSION = "1.0.0";
@@ -27,16 +28,16 @@ our $metadata = {
 
 sub get_localized_metadata {
     my ($self) = @_;
-    my $lang = C4::Languages::getLanguage(); || 'fi';
+    my $lang = C4::Languages::getlanguage() || 'en';
     my ($name, $description);
 
     if ($lang eq 'sv-SE') {
-        $name = IntranetUserJS: Sökhjälp;
-        $description = "Föreslå termer från vokabulär i avancerad sökning (Lokala databaser och Tant)";
+        $name = "IntranetUserJS: Sökhjälp";
+        $description = "Föreslå termer från vokabulär i avancerad sökning (Lokala databaser och Täti)";
     
-    } elisf ( $lang eq 'en-US' ) {
-        $name = IntranetUserJS: Search Helper;
-        $description = "Suggest vocabulary terms in advanced search (Local databases and Aunt)";
+    } elsif ( $lang eq 'en-US' ) {
+        $name = "IntranetUserJS: Search Helper";
+        $description = "Suggest vocabulary terms in advanced search (Local databases and Täti)";
     } else {
         $name = "IntranetUserJS: Hakuapuri";
         $description = "Ehdota sanastotermejä tarkassa haussa (Paikalliskannat ja Täti)";
@@ -57,6 +58,10 @@ sub new {
     ## This runs some additional magic and checking
     ## and returns our actual 
     my $self = $class->SUPER::new($args);
+
+    my ($name, $description) = $self->get_localized_metadata();
+    $self->{'metadata'}->{'name'} = $name;
+    $self->{'metadata'}->{'description'} = $description;
 
     return $self;
 }
