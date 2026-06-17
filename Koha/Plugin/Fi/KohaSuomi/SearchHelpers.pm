@@ -32,15 +32,15 @@ sub get_localized_metadata {
     my ($name, $description);
 
     if ($lang eq 'sv-SE') {
-        $name = "IntranetUserJS: Sökhjälp";
-        $description = "Föreslå termer från vokabulär i avancerad sökning (Lokala databaser och Täti)";
+        $name = "IntranetUserJS: Sökassistent";
+        $description = "Föreslår termer från ALLFO-vokabulären i avancerad sökning (Lokala databaser och Täti)";
     
     } elsif ($lang eq 'fi-FI' ) {
         $name = "IntranetUserJS: Hakuapuri";
-        $description = "Ehdota sanastotermejä tarkassa haussa (Paikalliskannat ja Täti)";
+        $description = "Ehdottaa YSO-sanastotermejä tarkassa haussa (Paikalliskannat ja Täti)";
     } else {
-        $name = "IntranetUserJS: Search Helper";
-        $description = "Suggest vocabulary terms in advanced search (Local databases and Täti)";
+        $name = "IntranetUserJS: Search assistant";
+        $description = "Suggests YSO vocabulary terms in advanced search (Local databases and Täti)";
     }
     return ($name, $description);
 }

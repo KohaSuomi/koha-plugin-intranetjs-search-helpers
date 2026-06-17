@@ -1,11 +1,11 @@
 [%
     T = {
-        configure_1                                = "IntranetUserJS: SearchHelpers Konfiguration",
+        configure_1                                = "IntranetUserJS: Sökassistent",
         configure_2                                = "Hem",
-        configure_3                                = "Moduler",
-        configure_4                                = "&rsaquo; IntranetUserJS: SearchHelpers &rsaquo; Konfiguration",
-        configure_5                                = "Sökordlistor:",
-        configure_6                                = "(välilyönnillä eroteltu lista hakusanastoista, esim. \"yso allars finaf\")",
+        configure_3                                = "Plugins",
+        configure_4                                = "&rsaquo; IntranetUserJS: Sökassistent &rsaquo; Konfiguration",
+        configure_5                                = "Vokabulärer:",
+        configure_6                                = "(lista över vokabulärer, åtskilda med mellanslag "yso allars finaf")",
         configure_7                                = "Spara",
     }
 %]
