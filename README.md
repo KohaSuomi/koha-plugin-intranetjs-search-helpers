@@ -13,9 +13,9 @@ ja englanniksi *IntranetUserJS: Search assistant*.
 
 ## Mitä liitännäinen tekee
 
-Kun kuvailija kirjoittaa tarkan haun hakukenttään vähintään kolme merkkiä, liitännäinen
+Kun kuvailija tai tiedonhakija kirjoittaa tarkan haun hakukenttään vähintään kolme merkkiä, liitännäinen
 hakee Finton sanasto-API:sta hakusanan alkeen vastaavat termit ja näyttää ne listana
-hakukentän alla. Kuvailija valitsee listasta sopivan termin, ja se siirtyy hakukenttään.
+hakukentän alla. Kuvailija tai tiedonhakija valitsee listasta sopivan termin, ja se siirtyy hakukenttään.
 
 Liitännäinen **ei muuta itse hakua**. Se täyttää vain hakukentän, joten:
 
@@ -31,7 +31,7 @@ Hakutermi lähetetään selaimesta suoraan Finton rajapintaan (`https://api.fint
 
 ## Käyttö
 
-1. Mene tarkan hakuun (Kuvailu → Haku).
+1. Mene tarkan hakuun (Haku -> Tarkka haku).
 2. Kirjoita hakukenttään vähintään kolme merkkiä. Odotetaan hetki, jonka jälkeen ehdotukset
    näkyvät hakukentän alla.
 3. Valitse termi joko klikkaamalla sitä tai näppäimistä: nuolet ylös/alas siirtävät
@@ -83,10 +83,10 @@ käytöstä hakuapurina on kerätty tikettiin
 
 ## Miten se toimii
 
-Liitännäinen lisää kuvailijan selaimen sivustolle oman JavaScript-tiedostonsa
+Liitännäinen lisää kuvailijan tai tiedonhakija selaimen sivustolle oman JavaScript-tiedostonsa
 (`Koha/Plugin/Fi/KohaSuomi/SearchHelpers/js/finto-helper.js`) kaikille virkailijaliittymän
 sivuille, mutta ehdotukset toimivat vain tarkan haun sivulla, koska sivulta löytyvä
-`<fieldset id="searchterms">` -elementti on tarkan haun sivulla. Niteenhakuun, kuvailijan
+`<fieldset id="searchterms">` -elementti on tarkan haun sivulla. Nidehakuun, kuvailijan
 muihin näkymiin tai OPACiin liitännäinen ei vaikuta.
 
 Tapahtumat:
@@ -110,7 +110,7 @@ Kohan tietokantaan tai Elasticsearchiin.
 
 ## Rajoitteet
 
-* Toimii vain virkailijaliittymän tarkan haun sivulla. Se ei auta niteenhauissa, kuvailijan
+* Toimii vain virkailijaliittymän tarkan haun sivulla. Se ei auta nidehauissa, kuvailijan
   tietueen perustiedoissa eikä OPACissa.
 * Ehdotukset ovat niin hyviä kuin sanasto, josta ne tulevat. Liitännäinen ei osaa hakea
   Finton ulkopuolelta eikä yhdistää tuloksia Kohan sanastoihin.
@@ -122,11 +122,11 @@ Kohan tietokantaan tai Elasticsearchiin.
 ## Testaus
 
 1. Aseta Sanastot-asetukseen esimerkiksi `yso finaf` ja tallenna.
-2. Mene tarkan hakuun ja kirjoita hakukenttään vähintään kolme merkkiä, esim. `kirj`.
+2. Mene tarkkaan hakuun ja kirjoita hakukenttään vähintään kolme merkkiä, esim. `kirj`.
    Ehdotuslistan pitää ilmestyä hakukentän alle.
 3. Valitse ehdotus näppäimistä (nuolet ja Enter) ja tarkista, että termi siirtyy
    hakukenttään ja että haku toimii.
-4. Toista sama `[+]`-napilla lisätyllä kentällä.
+4. Toista sama `[+]`-napilla lisätyllä hakukentällä.
 5. Tarkista, että Esc sulkee ehdotuslistan ja että kahdella merkillä ei haeta lainkaan.
 6. Kirjaudu ulos kirjautumattomaksi käyttäjäksi ja varmista, ettei liitännäinen vaikuta
    OPACiin.
